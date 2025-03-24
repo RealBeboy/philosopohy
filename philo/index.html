@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Perspective Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #121212 0%, #2d3436 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            color: #e0e0e0;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        h1 {
+            color: #e0e0e0;
+            margin-bottom: 1.5rem;
+        }
+        
+        .statement-container {
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+            transition: all 0.3s ease;
+            border: 1px solid #3a3a3a;
+        }
+        
+        .statement {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #c9c9c9;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .fade {
+            opacity: 0;
+        }
+        
+        button {
+            background-color: #7e57c2;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(126, 87, 194, 0.3);
+        }
+        
+        button:hover {
+            background-color: #9575cd;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(126, 87, 194, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        footer {
+            margin-top: auto;
+            padding: 1rem 0;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .statement {
+                font-size: 1rem;
+            }
+            
+            button {
+                padding: 0.8rem 1.6rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Perspective Generator</h1>
+        
+        <div class="statement-container">
+            <p id="statement" class="statement">Click the button below to generate a random perspective statement.</p>
+        </div>
+        
+        <button id="generate-btn">Generate Perspective</button>
+    </div>
+    
+    <footer>
+        <p>© 2025 Philosophy Group 5</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statements = [
+                "You felt like everyone could see through you without even having to explain yourself.",
+                "You realized with a different perspective that something or someone was not quite as you had thought.",
+                "You had a connection to an unfamiliar person, which was so strong that it was unexplainable.",
+                "You were in sync with someone else's thoughts even if they did not express it.",
+                "You and a friend were describing the same event from two completely different angles.",
+                "You communicated with someone by understanding his/her mood without any talk.",
+                "You were actually experiencing the same emotions with the people around.",
+                "You achieved an 'aha' moment by confronting life from someone else's perspective.",
+                "You were so very clear in your communication to be missed/missed. (misunderstood)",
+                "Your personal journey to resolve matters between you and others diminished your biased perception of the issue.",
+                "You made friends with people apart from your group who only get a joke as a small group.",
+                "Such an occasion made you aware of the fact that parents, siblings, and parents' previous generations are a solid part of your life, being a cultural-transmitted child.",
+                "You could perceive a close friend's thoughts even when he/she did not speak anything.",
+                "You felt connected strongly to a piece of music, a book, or a movie that affected you deeply.",
+                "A mode of communication broke down because you were operating from different thought systems.",
+                "You nodded along as someone described a shared experience because you felt it too.",
+                "You came to the realization that your commonsense is different from that of everybody else.",
+                "You identified that your own perspective or perception of reality may conflict with that of others.",
+                "You were 'seen' by another person in a real, true way.",
+                "You connected with someone over something that you passionate about both of you and no one else.",
+                "You sometimes felt like you were the foreigner in a group that has a common ground of understanding.",
+                "You were conscious that a person's mood has an impact on how you interpret what they are doing to you.",
+                "One time, you had a great conversation with minimal verbal communication.",
+                "Your perspective has broadened after a meaningful talk with someone who was different from you.",
+                "You watched family members telling childhood stories that were quite different from each other.",
+                "You came across a situation where a culture-based misunderstanding helped you realize your prejudgments.",
+                "One strongly felt how one was bonded to a group through the fact of all members having similar rituals.",
+                "You were the only one who was not on the same page, or who could not follow an unwritten social norm.",
+                "You had an instant wherein both of you shared a mutual understanding of something without uttering a word.",
+                "You were able to shift to a different viewpoint after listening to someone's life story.",
+                "You could say that music or art carried a message, which words didn't.",
+                "You realized the effect of your own personality on the way you evaluate the world."
+            ];
+            
+            const statementElement = document.getElementById('statement');
+            const generateBtn = document.getElementById('generate-btn');
+            
+            generateBtn.addEventListener('click', function() {
+                // Add fade out class
+                statementElement.classList.add('fade');
+                
+                // Wait for fade out animation to complete
+                setTimeout(function() {
+                    // Get random statement
+                    const randomIndex = Math.floor(Math.random() * statements.length);
+                    statementElement.textContent = statements[randomIndex];
+                    
+                    // Remove fade class to fade in the new statement
+                    statementElement.classList.remove('fade');
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
